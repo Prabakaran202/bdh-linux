@@ -1,0 +1,68 @@
+bdh-linux CLI Tool — Ideas 🔥
+Core Commands:
+bdh-linux install        # Full BDH setup
+bdh-linux install --min  # Minimal setup
+bdh-linux status         # What's installed check
+bdh-linux update         # Update all BDH tools
+bdh-linux --version      # CLI version
+
+
+Setup Commands:
+bdh-linux setup terminal    # ZSH + prompt + aliases
+bdh-linux setup packages    # Python, FastAPI, PostgreSQL
+bdh-linux setup theme       # Cyberpunk wallpaper + GTK
+bdh-linux setup git         # Git global config
+bdh-linux setup docker      # Docker install + config
+
+
+
+Dev Commands:
+bdh-linux new project       # bdh-fastapi-new call பண்ணும்!
+bdh-linux serve             # uvicorn start
+bdh-linux db start          # PostgreSQL start
+bdh-linux db stop           # PostgreSQL stop
+
+
+
+
+
+
+Remove Commands:
+bdh-linux remove bloat      # Unwanted apps remove
+bdh-linux remove games      # Games remove
+bdh-linux remove office     # Office apps remove
+
+
+
+
+
+
+
+
+Info Commands:
+bdh-linux doctor            # System check — everything ok?
+bdh-linux info              # BDH system info show
+bdh-linux list packages     # Installed packages list
+
+
+
+
+
+💡 Special Idea — bdh-linux doctor:
+⚡ BDH Linux Doctor
+====================
+✅ Python 3.12 — installed
+✅ FastAPI — installed  
+✅ PostgreSQL — running
+✅ ZSH — configured
+✅ Git — configured
+❌ Docker — not installed
+====================
+Run: bdh-linux setup docker
+System health check — one command! 🔥
+
+
+
+
+bdh-linux new my-api
+Internally bdh-fastapi-new call பண்ணும் — two tools connect ஆகும்!
