@@ -10,6 +10,9 @@ BASE_URL="https://raw.githubusercontent.com/BackendDeveloperHub/bdh-linux/main"
 echo "🔧 Setting up ZSH..."
 sudo pacman -S --noconfirm zsh git curl
 sudo usermod -s /bin/zsh $USER
+# Step 2 — Ranger + Nano
+echo "🗂️  Setting up Ranger with Nano..."
+bash scripts/setup_ranger.sh
 
 # Step 2 — Oh My Zsh
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
