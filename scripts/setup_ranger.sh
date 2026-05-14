@@ -5,12 +5,14 @@
 echo "🗂️  Setting up Ranger with Nano editor..."
 
 # Install ranger and nano
-sudo pacman -S ranger nano --noconfirm
+if command -v pacman &> /dev/null; then
+    sudo pacman -S ranger nano --noconfirm
+elif command -v pkg &> /dev/null; then
+    pkg install ranger nano -y
+fi
 
-# Create ranger config directory
+# Create ranger config
 mkdir -p ~/.config/ranger
-
-# Copy default config if not exists
 if [ ! -f ~/.config/ranger/rc.conf ]; then
     ranger --copy-config=rc 2>/dev/null
 fi
