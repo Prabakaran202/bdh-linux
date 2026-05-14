@@ -10,8 +10,11 @@ BASE_URL="https://raw.githubusercontent.com/BackendDeveloperHub/bdh-linux/main"
 echo "🔧 Setting up ZSH..."
 sudo pacman -S --noconfirm zsh git curl
 sudo usermod -s /bin/zsh $USER
+# Step 2 — Ranger + Nano
+echo "🗂️  Setting up Ranger with Nano..."
+bash scripts/setup_ranger.sh
 
-# Step 2 — Oh My Zsh
+# Step 3 — Oh My Zsh
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
   echo "🔧 Installing Oh My Zsh..."
   git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
@@ -19,7 +22,7 @@ else
   echo "⚡ Oh My Zsh already exists, skipping..."
 fi
 
-# Step 3 — Powerlevel10k
+# Step 4 — Powerlevel10k
 if [ ! -d "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" ]; then
   echo "🔧 Installing Powerlevel10k..."
   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
@@ -28,7 +31,7 @@ else
   echo "⚡ Powerlevel10k already exists, skipping..."
 fi
 
-# Step 4 — Plugins
+# Step 5 — Plugins
 if [ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then
   git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git \
     ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
@@ -39,12 +42,12 @@ if [ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]; then
     ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 fi
 
-# Step 5 — BDH Configs
+# Step 6 — BDH Configs
 echo "🔧 Applying BDH configs..."
 curl -fsSL "$BASE_URL/configs/.zshrc" -o ~/.zshrc
 curl -fsSL "$BASE_URL/configs/aliases.sh" -o ~/.aliases.sh
 
-# Step 6 — Packages
+# Step 7 — Packages
 echo "🔧 Installing packages..."
 curl -fsSL "$BASE_URL/scripts/install-packages.sh" -o /tmp/install-packages.sh
 bash /tmp/install-packages.sh
