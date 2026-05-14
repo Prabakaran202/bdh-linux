@@ -104,4 +104,7 @@ fi
 # Step 1 — ZSH
 echo "🔧 Setting up ZSH..."
 sudo pacman -S --noconfirm zsh git curl
+# Step 2 — Ranger + Nano
+echo "🗂️  Setting up Ranger..."
+bash scripts/setup_ranger.sh
 # ... (matha steps ellam appadiyae thodarum)
