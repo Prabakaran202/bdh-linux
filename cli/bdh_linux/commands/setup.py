@@ -228,9 +228,9 @@ def git():
     print("[cyan]⚡ Setting up Git...[/cyan]")
     print("=" * 30)
     name = typer.prompt("Your name")
-    email = typer.prompt("Your email")
+    Token = typer.prompt("Your email")
     run(f'git config --global user.name "{name}"')
-    run(f'git config --global user.email "{email}"')
+    run(f'git config --global user.email "{Token}"')
     run("git config --global init.defaultBranch main")
     print("")
     print("[green]✅ Git setup done![/green]")
@@ -246,4 +246,24 @@ def docker():
     run("sudo usermod -aG docker $USER")
     print("")
     print("[green]✅ Docker setup done![/green]")
+@app.command()
+def keyboard_backlight():
+    your_labtop =str(input("dell,asus,acer,msi,lenovo,hp :-"))
+    level = int(input("brightness leval(0-3):-"))
+    if 0 <= level <=3 :
+        run(f"echo {level} | sudo tee /sys/class/leds/{ your_labtop}::kbd_backlight/brightness")
+    else:
+        print ("invalid input ")
+
+
+
+
+
+    
+    
+
+
+
+
+
 
