@@ -1,8 +1,12 @@
 import os
 import urllib.request
 from pathlib import Path
+import typer
+from rich import print
 
-# Tamizhi-ku available-a irukka libraries list
+# Typer App-ஐ உருவாக்குகிறோம்
+app = typer.Typer(help="📦 Tamizhi Package Manager")
+
 LIBRARIES = {
     "http": {
         "name": "Tamizhi HTTP Web Server",
@@ -18,7 +22,6 @@ LIBRARIES = {
             }
         ]
     }
-    # Future-la db, math nu pudhu libraries vandha inga add pannikalam
 }
 
 def download_file(url, dest_path):
@@ -26,43 +29,37 @@ def download_file(url, dest_path):
     with urllib.request.urlopen(req) as response, open(dest_path, 'wb') as out_file:
         out_file.write(response.read())
 
-def tamizhi_package_manager():
-    print("\n📦 Available Tamizhi Libraries:")
-    print("-" * 40)
+@app.command("get")
+def get_library(name: str = typer.Argument(None, help="Name of the library to install")):
+    """Install a Tamizhi library (e.g., http)"""
     
-    # 1. Available libraries-a list pandrom
-    for key, info in LIBRARIES.items():
-        print(f" 👉 [{key}] : {info['name']} - {info['desc']}")
-    
-    print("-" * 40)
-    
-    # 2. User kitta input vangrom
-    choice = input("Enter the library name to install (eg: http) or 'exit': ").strip().lower()
-    
-    if choice == 'exit':
-        print("Cancelled.")
+    # யூசர் எந்த பெயரும் கொடுக்கவில்லை என்றால், லிஸ்ட்டைக் காட்ட வேண்டும்
+    if not name:
+        print("\n[bold cyan]📦 Available Tamizhi Libraries:[/bold cyan]")
+        print("-" * 50)
+        for key, info in LIBRARIES.items():
+            print(f" 👉 [bold green][{key}][/bold green] : {info['name']} - {info['desc']}")
+        print("-" * 50)
+        print("Run [bold yellow]bdh-linux tamizhi get <library_name>[/bold yellow] to install.\n")
         return
-        
-    if choice in LIBRARIES:
-        print(f"\n⬇️ Installing '{choice}' library...")
-        
-        # 3. Select panna library-oda files-a download pandrom
-        for file_info in LIBRARIES[choice]["files"]:
+
+    name = name.lower()
+    
+    # யூசர் கொடுத்த பெயர் இருந்தால் டவுன்லோட் செய்ய வேண்டும்
+    if name in LIBRARIES:
+        print(f"\n[bold yellow]⬇️ Installing '{name}' library...[/bold yellow]")
+        for file_info in LIBRARIES[name]["files"]:
             dest = Path(file_info["dest"]).expanduser()
-            dest.parent.mkdir(parents=True, exist_ok=True) # Folder illana create pannidum
+            dest.parent.mkdir(parents=True, exist_ok=True)
             
             print(f" 📥 Downloading {dest.name}...")
             try:
                 download_file(file_info["url"], dest)
-                print(f" ✅ Saved to {dest}")
+                print(f" [bold green]✅ Saved to {dest}[/bold green]")
             except Exception as e:
-                print(f" ❌ Failed to download {dest.name}: {e}")
+                print(f" [bold red]❌ Failed to download {dest.name}: {e}[/bold red]")
                 return
                 
-        print(f"\n🎉 Successfully installed {LIBRARIES[choice]['name']}!")
+        print(f"\n[bold green]🎉 Successfully installed {LIBRARIES[name]['name']}![/bold green]\n")
     else:
-        print("❌ Invalid library name. Please try again.")
-
-# bdh-linux command call aagumbodhu idhu run aagum
-if __name__ == "__main__":
-    tamizhi_package_manager()
+        print(f"[bold red]❌ Invalid library name '{name}'. Run without arguments to see the list.[/bold red]")
